@@ -67,7 +67,6 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         miner.move_next(max_x, max_y)
-        print(len(artifacts))
         
         for artifact in artifacts:
             artifact.move_next(max_x, max_y)
