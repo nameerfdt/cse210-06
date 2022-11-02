@@ -14,16 +14,17 @@ from shared.color import Color
 from shared.point import Point
 
 
-FRAME_RATE = 9
+FRAME_RATE = 30
 MAX_X = 900
 MAX_Y = 600
 CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 60
 ROWS = 40
-CAPTION = "Robot Finds Kitten"
+CAPTION = "Greed"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 40
+DEFAULT_ARTIFACTS = 10
+ARTIFACT_OPTIONS = ["0","*"]
 
 
 def main():
@@ -33,15 +34,15 @@ def main():
     
     # create the banner
     banner = Actor()
-    banner.set_text("")
+    banner.set_text("Points: 0")
     banner.set_font_size(FONT_SIZE)
     banner.set_color(WHITE)
     banner.set_position(Point(CELL_SIZE, 0))
     cast.add_actor("banners", banner)
     
-    # create the robot
+    # create the player
     x = int(MAX_X / 2)
-    y = int(MAX_Y / 2)
+    y = int(MAX_Y)-int(CELL_SIZE)
     position = Point(x, y)
 
     robot = Actor()
@@ -54,10 +55,11 @@ def main():
     # create the artifacts
 
     for n in range(DEFAULT_ARTIFACTS):
-        text = chr(random.randint(33, 126))
+        
+        text = random.choice(ARTIFACT_OPTIONS)
 
         x = random.randint(1, COLS - 1)
-        y = random.randint(1, ROWS - 1)
+        y = 1
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
 
@@ -67,6 +69,7 @@ def main():
         color = Color(r, g, b)
         
         artifact = Artifact()
+        artifact.set_velocity(Point(0,5))
         artifact.set_text(text)
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
