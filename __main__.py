@@ -38,17 +38,17 @@ def main():
     banner.set_position(Point(CELL_SIZE, 0))
     cast.add_actor("banners", banner)
     
-    # create the player
+    # create the miner
     x = int(MAX_X / 2)
     y = int(MAX_Y)-int(CELL_SIZE)
     position = Point(x, y)
 
-    robot = Actor()
-    robot.set_text("#")
-    robot.set_font_size(FONT_SIZE)
-    robot.set_color(WHITE)
-    robot.set_position(position)
-    cast.add_actor("robots", robot)
+    miner = Actor()
+    miner.set_text("#")
+    miner.set_font_size(FONT_SIZE)
+    miner.set_color(WHITE)
+    miner.set_position(position)
+    cast.add_actor("miners", miner)
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)

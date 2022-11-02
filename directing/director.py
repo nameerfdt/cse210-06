@@ -45,35 +45,35 @@ class Director:
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
-        """Gets directional input from the keyboard and applies it to the robot.
+        """Gets directional input from the keyboard and applies it to the miner.
         
         Args:
             cast (Cast): The cast of actors.
         """
-        robot = cast.get_first_actor("robots")
+        miner = cast.get_first_actor("miners")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)
+        miner.set_velocity(velocity)
 
     def _do_updates(self, cast):
-        """Updates the robot's position and resolves any collisions with artifacts.
+        """Updates the miner's position and resolves any collisions with artifacts.
         
         Args:
             cast (Cast): The cast of actors.
         """
         banner = cast.get_first_actor("banners")
-        robot = cast.get_first_actor("robots")
+        miner = cast.get_first_actor("miners")
         artifacts = cast.get_actors("artifacts")
 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
-        robot.move_next(max_x, max_y)
+        miner.move_next(max_x, max_y)
         print(len(artifacts))
         
         for artifact in artifacts:
             artifact.move_next(max_x, max_y)
             if artifact.get_position().get_y() == max_y+30:
                 cast.remove_actor("artifacts", artifact)
-            if robot.get_position().equals(artifact.get_position()):
+            if miner.get_position().equals(artifact.get_position()):
                 if artifact.get_text() == "0":
                     self._points += -1
                 elif artifact.get_text() == "*":

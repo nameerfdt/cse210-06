@@ -32,7 +32,7 @@
 
 ### Cast
 
-*Storage for individual artifacts and actors to exist. Moves Artifacts and Actors Relevant to their velocity.
+* Storage for individual artifacts and actors to exist. Moves Artifacts and Actors Relevant to their velocity. Appies mainly to miner and atifacts.
 
 ## Directing
 
