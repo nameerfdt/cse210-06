@@ -2,7 +2,6 @@ import os
 import random
 
 from casting.actor import Actor
-from casting.artifact import Artifact
 from casting.cast import Cast
 
 from directing.director import Director

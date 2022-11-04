@@ -23,6 +23,8 @@ class Director:
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
             video_service (VideoService): An instance of VideoService.
+            cell_size: Cell size of the game board.
+            font_size: Font size of the text.
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
@@ -56,6 +58,7 @@ class Director:
 
     def _do_updates(self, cast):
         """Updates the miner's position and resolves any collisions with artifacts.
+        Generates random artifacts for each cycle.
         
         Args:
             cast (Cast): The cast of actors.
