@@ -2,14 +2,14 @@ import random
 
 from casting.actor import Actor
 from casting.bullet import Bullet
-from casting.artifact import Artifact
+from casting.marauder import Marauder
 from constants import MAX_Y
 from shared.color import Color
 from shared.point import Point
 
 COLS = 60
-DEFAULT_ARTIFACTS = 3
-ARTIFACT_OPTIONS = ["0", "*"]
+DEFAULT_MARAUDERS = 3
+#MARAUDER_OPTIONS = ["0", "*"]
 
 
 class Director:
@@ -55,42 +55,42 @@ class Director:
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
-        """Gets directional input from the keyboard and applies it to the miner.
+        """Gets directional input from the keyboard and applies it to the spaceship.
         
         Args:
             cast (Cast): The cast of actors.
         """
-        miner = cast.get_first_actor("miners")
+        spaceship = cast.get_first_actor("spaceships")
         velocity = self._keyboard_service.get_direction()
-        miner.set_velocity(velocity)
+        spaceship.set_velocity(velocity)
         if self._keyboard_service.shoot_bullet():
             self._bullets_to_fire += 1
         if self._keyboard_service.gun_off():
             self._bullets_to_fire = 1
 
     def _do_updates(self, cast):
-        """Updates the miner's position and resolves any collisions with artifacts.
-        Generates random artifacts for each cycle.
+        """Updates the spaceship's position and resolves any collisions of bullets with marauders.
+        Generates new row of marauders for each cycle.
         
         Args:
             cast (Cast): The cast of actors.
         """
         banner = cast.get_first_actor("banners")
-        miner = cast.get_first_actor("miners")
-        bullets = cast.get_actors('bullets')
-        artifacts = cast.get_actors("artifacts")
+        spaceship = cast.get_first_actor("spaceships")
+        bullets = cast.get_actors("bullets")
+        marauders = cast.get_actors("marauders")
 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
-        miner.move_next(max_x, max_y)
+        spaceship.move_next(max_x, max_y)
 
-        for artifact in artifacts:
-            if artifact.get_position().get_y() == max_y + 30:
-                cast.remove_actor("artifacts", artifact)
+        for marauder in marauders:
+            if marauder.get_position().get_y() == max_y + 30:
+                cast.remove_actor("marauders", marauder)
 
             for bullet in bullets:
-                if artifact.get_position().equals(bullet.get_position()):
-                    cast.remove_actor("artifacts", artifact)
+                if marauder.get_position().equals(bullet.get_position()):
+                    cast.remove_actor("marauders", marauder)
                     cast.remove_actor("bullets", bullet)
                     self._points += 1
 
@@ -109,10 +109,10 @@ class Director:
                 velocity = Point(-15, 0)
                 self._movement_count = 1
 
-        for artifact in artifacts:
+        for marauder in marauders:
             if self._updates_loop % 32 == 0 and self._updates_loop !=0:
-                artifact.set_velocity(velocity)
-                artifact.move_next(max_x, max_y)
+                marauder.set_velocity(velocity)
+                marauder.move_next(max_x, max_y)
 
         if self._updates_loop % 320 == 0:
             for n in range(9):
@@ -128,29 +128,29 @@ class Director:
                 b = random.randint(0, 255)
                 color = Color(r, g, b)
                 
-                artifact = Artifact()
-                artifact.set_text(text)
-                artifact.set_font_size(self._font_size)
-                artifact.set_color(color)
-                artifact.set_position(position)
-                cast.add_actor("artifacts", artifact)
+                marauder = Marauder()
+                marauder.set_text(text)
+                marauder.set_font_size(self._font_size)
+                marauder.set_color(color)
+                marauder.set_position(position)
+                cast.add_actor("marauders", marauder)
+
                 if x == COLS-10:
                     self._current_x = 10
                 else:
                     self._current_x += 5
         #        self._updates_loop = 0
 
-        print (self._bullets_to_fire)
         if self._updates_loop % 4 == 0:
             if self._bullets_to_fire > 0:
                 bullet = Bullet()
-                bullet.set_position(Point(miner.get_position().get_x(), MAX_Y - 30))
-                cast.add_actor('bullets', bullet)
+                bullet.set_position(Point(spaceship.get_position().get_x(), MAX_Y - 30))
+                cast.add_actor("bullets", bullet)
 
                 self._bullets_to_fire -= 1
 
-            # for n in range(DEFAULT_ARTIFACTS):
-            #     text = random.choice(ARTIFACT_OPTIONS)
+            # for n in range(DEFAULT_MARAUDERS):
+            #     text = random.choice(MARAUDER_OPTIONS)
 
             #     x = random.randint(1, COLS - 1)
             #     y = 1
@@ -162,13 +162,13 @@ class Director:
             #     b = random.randint(0, 255)
             #     color = Color(r, g, b)
 
-            #     artifact = Artifact()
-            #     artifact.set_velocity(Point(0, 5))
-            #     artifact.set_text(text)
-            #     artifact.set_font_size(self._font_size)
-            #     artifact.set_color(color)
-            #     artifact.set_position(position)
-            #     cast.add_actor("artifacts", artifact)
+            #     marauder = Marauder()
+            #     marauder.set_velocity(Point(0, 5))
+            #     marauder.set_text(text)
+            #     marauder.set_font_size(self._font_size)
+            #     marauder.set_color(color)
+            #     marauder.set_position(position)
+            #     cast.add_actor("marauderS", marauder)
 
         for bullet in bullets:
             bullet.move_next(max_x, max_y)
