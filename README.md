@@ -1,72 +1,105 @@
-# Greed Overview
-Greed is a game in which the player, a miner, seeks to gather as many falling gems as possible.
-As the miner moves side to side and mines a gem, a point is earned. If a boulder is mined, the 
-player loses a point. Gems and boulders are removed when either touched or untouched. The game
-ends when the miner closes the mine, aka the game window. 
+# Final Project
+_______
+
+***Overview Info***
 
 ## Getting Started
-___
+_______
 
-Make sure you have Python 3.10 or newer installed and running on your machine. Open a terminal and 
-browse to the project's root folder. Start the program by running the following command.
+Make sure you have Python 3.10 or newer installed and Raylib Python CFFI 3.7 installed and running on your machine. You can install Raylib Python CFFI by opening a terminal and running the following command.
+
 ```
-__main__.py
+python3 -m pip install raylib
 ```
-You can also run the program from an IDE like Visual Studio Code. Start your IDE and open the 
-project folder. Select the main module inside the puzzle folder and click the "run" button.
+
+Open a terminal and browse to the project's root folder. Start the program by running the following command.
+
+```
+python3 __main__.py
+```
+
+You can also run the program from an IDE like Visual Studio Code. Start your IDE and open the project folder. Select the main module inside the puzzle folder and click the "run" button.
 
 ## Project Structure
-___
+_______
 
-__main__
+* main.py
+    * setup game and act as initial launch point
 
-## Services
+* director.py
+    * runs game operations for each cycle
 
-### Keyboard Service
+* keyboard_service.py
+    * enter key to start game
+    * space for shooting
+    * arrow keys left/right movement
 
-* Acts as an interface to check what keyboard keys are being held by the user. 
+* video_service.py
+    * displays output to user through raylib
 
-### Video Service
+* actor.py (parent class)
+    * velocity (attr)
+    * color (attr)
+    * position (attr)
+    * font_sizes (attr)
+    * text of actor (attr) how it's displayed
+    * get_color (method)
+    * get_font_sizes (method)
+    * get_text (method)
+    * get_position (method)
+    * get_velocity (method)
+    * set_color (method)
+    * set_font_sizes (method)
+    * set_text (method)
+    * set_position (method)
+    * set_velocity (method)
+    * move_next (method)
+    * aliens.py (child class)
+    * spaceship.py (player) (child class)
+    * bullets.py (child class)
+    * score.py
+    
+* actions.py
+    * control_player_action.py
+        * uses keyboard_service to set player velocity
+    * handle_collision_action.py
+        * interprets what happens when actors touch each other
+        * if player touches bullet player loses life
+        * if alien touches bullet alien is removed
+        * if alien touches player loses game
+        * handle_game_over (method) if player out of lives
+    * move_actors_action.py
+        * tell actors to move to new positions as defined by velocity
+    * draw_actors_action.py
+        * calls video_service to draw related actors 
+    * script.py
+        * stores all actions
+    
+* color.py
+    * hold information relating to the color of actor 
+* point.py
+    * hold information relating to the location of actor 
+* constants.py
+    * holds consistant values through game play
 
-* Sets window bounds and visual output to user.
+    
 
-## Shared
 
-### Color
 
-* Defines and stores a color for an object, receives an RGB input.
 
-### Point
 
-* X and Y coordinate storage for an object.
-
-## Casting
-
-### Actor
-
-* A component of the game that stores properties relating to itself. It acts as an individual component of the game.
-
-### Artifact
-
-* A subset of Actor that moves downward on the screen different from the player actor. Is a subset of two groups, boulders and gems.
-
-### Cast
-
-* Storage for individual artifacts and actors to exist. Moves Artifacts and Actors relevant to their velocity. Applies mainly to miner and arifacts.
-
-## Directing
-
-### Director
-
-* Operates the gameplay and loops until user is bored.
 
 ## Required Technologies
----
+_______
+
 * Python 3.10
-* Raylib Python 4.2
+* Raylib Python CFFI 3.7
 
 ## Authors
----
+_______
+
 * Alex Dahl (alexdahl@byui.edu)
 * Tracy Freeman (nameerfdt@byui.edu)
 * Joshua Herman (her21095@byui.edu)
+* Chris Lynch (cjlynch@byui.edu)
+

@@ -32,6 +32,8 @@ class Director:
         self._font_size = font_size
         self._points = 0
         self._updates_loop = 0
+        self._current_x = 10
+        self._movement_count = 0
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -54,6 +56,7 @@ class Director:
         """
         miner = cast.get_first_actor("miners")
         velocity = self._keyboard_service.get_direction()
+        key_press = self._keyboard_service.get_space()
         miner.set_velocity(velocity)
 
     def _do_updates(self, cast):
@@ -70,9 +73,24 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         miner.move_next(max_x, max_y)
-        
+        if self._updates_loop % 32 == 0 and self._updates_loop !=0:
+            if self._movement_count != 10:
+                if self._movement_count == 0 or self._movement_count == 1 or self._movement_count == 8 or self._movement_count == 9:
+                    velocity = Point(-15, 0)
+                    self._movement_count += 1
+                elif self._movement_count == 3 or self._movement_count == 4 or self._movement_count == 5 or self._movement_count == 6:
+                    velocity = Point(15, 0)
+                    self._movement_count += 1
+                elif self._movement_count == 2 or self. _movement_count == 7:
+                    velocity = Point(0, 15)
+                    self._movement_count += 1
+            else:
+                velocity = Point(-15, 0)
+                self._movement_count = 1
         for artifact in artifacts:
-            artifact.move_next(max_x, max_y)
+            if self._updates_loop % 32 == 0 and self._updates_loop !=0:
+                artifact.set_velocity(velocity)
+                artifact.move_next(max_x, max_y)
             if artifact.get_position().get_y() == max_y+30:
                 cast.remove_actor("artifacts", artifact)
             if miner.get_position().equals(artifact.get_position()):
@@ -83,12 +101,11 @@ class Director:
                 message = f"Points: {self._points}"
                 banner.set_text(message)
                 cast.remove_actor("artifacts", artifact)
-        if self._updates_loop % 4 == 0:
-            for n in range(DEFAULT_ARTIFACTS):
+        if self._updates_loop % 320 == 0:
+            for n in range(9):
             
-                text = random.choice(ARTIFACT_OPTIONS)
-
-                x = random.randint(1, COLS - 1)
+                text = "0"
+                x = self._current_x
                 y = 1
                 position = Point(x, y)
                 position = position.scale(self._cell_size)
@@ -99,12 +116,16 @@ class Director:
                 color = Color(r, g, b)
                 
                 artifact = Artifact()
-                artifact.set_velocity(Point(0,5))
                 artifact.set_text(text)
                 artifact.set_font_size(self._font_size)
                 artifact.set_color(color)
                 artifact.set_position(position)
                 cast.add_actor("artifacts", artifact)
+                if x == COLS-10:
+                    self._current_x = 10
+                else:
+                    self._current_x += 5
+                self._updates_loop = 0
         self._updates_loop +=1
 
         

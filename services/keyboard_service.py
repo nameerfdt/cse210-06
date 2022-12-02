@@ -39,3 +39,8 @@ class KeyboardService:
         direction = direction.scale(self._cell_size)
         
         return direction
+    def get_space(self):
+        if pyray.is_key_down(pyray.KEY_SPACE):
+            return True
+        else:
+            return False
