@@ -35,27 +35,24 @@ class KeyboardService:
         if pyray.is_key_down(pyray.KEY_RIGHT):
             dx = 1
 
-        if pyray.is_key_down(pyray.KEY_SPACE):
-            dy = -1
-
         direction = Point(dx, dy)
         direction = direction.scale(self._cell_size)
         
         return direction
 
-    def bullet_get_direction(self):
+    def shoot_bullet(self):
         """Gets the selected direction based on the currently pressed keys.
 
         Returns:
             Point: The selected direction.
         """
-        dx = 0
-        dy = 0
-
         if pyray.is_key_down(pyray.KEY_SPACE):
-            dy = -1
+            return True
+        else:
+            return False
 
-        direction = Point(dx, dy)
-        direction = direction.scale(self._cell_size)
-        
-        return direction
+    def gun_off(self):
+        if pyray.is_key_released(pyray.KEY_SPACE):
+            return True
+        else:
+            return False
