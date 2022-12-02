@@ -6,7 +6,7 @@ MAX_Y = 600
 CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 60
-CAPTION = "Greed"
+CAPTION = "Space Marauders"
 WHITE = Color(255, 255, 255)
 
 COLUMNS = 40

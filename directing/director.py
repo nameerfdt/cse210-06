@@ -1,6 +1,7 @@
 import random
 
 from casting.actor import Actor
+from casting.bullet import Bullet
 from casting.artifact import Artifact
 from constants import MAX_Y
 from shared.color import Color
@@ -37,6 +38,8 @@ class Director:
         self._points = 0
         self._updates_loop = 0
         self._bullets_to_fire = 0
+        self._current_x = 10
+        self._movement_count = 0
 
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -82,30 +85,40 @@ class Director:
         miner.move_next(max_x, max_y)
 
         for artifact in artifacts:
-            artifact.move_next(max_x, max_y)
             if artifact.get_position().get_y() == max_y + 30:
                 cast.remove_actor("artifacts", artifact)
 
             for bullet in bullets:
                 if artifact.get_position().equals(bullet.get_position()):
                     cast.remove_actor("artifacts", artifact)
+                    cast.remove_actor("bullets", bullet)
                     self._points += 1
 
-        if self._updates_loop % 4 == 0:
-            if self._bullets_to_fire > 0:
-                bullet = Actor()
-                bullet.set_velocity(Point(0, -10))
-                bullet.set_color(Color(255, 0, 0))
-                bullet.set_text("^")
-                bullet.set_position(Point(miner.get_position().get_x(), MAX_Y - 30))
-                cast.add_actor('bullets', bullet)
+        if self._updates_loop % 32 == 0 and self._updates_loop !=0:
+            if self._movement_count != 10:
+                if self._movement_count == 0 or self._movement_count == 1 or self._movement_count == 8 or self._movement_count == 9:
+                    velocity = Point(-15, 0)
+                    self._movement_count += 1
+                elif self._movement_count == 3 or self._movement_count == 4 or self._movement_count == 5 or self._movement_count == 6:
+                    velocity = Point(15, 0)
+                    self._movement_count += 1
+                elif self._movement_count == 2 or self. _movement_count == 7:
+                    velocity = Point(0, 15)
+                    self._movement_count += 1
+            else:
+                velocity = Point(-15, 0)
+                self._movement_count = 1
 
-                self._bullets_to_fire -= 1
+        for artifact in artifacts:
+            if self._updates_loop % 32 == 0 and self._updates_loop !=0:
+                artifact.set_velocity(velocity)
+                artifact.move_next(max_x, max_y)
 
-            for n in range(DEFAULT_ARTIFACTS):
-                text = random.choice(ARTIFACT_OPTIONS)
-
-                x = random.randint(1, COLS - 1)
+        if self._updates_loop % 320 == 0:
+            for n in range(9):
+            
+                text = "0"
+                x = self._current_x
                 y = 1
                 position = Point(x, y)
                 position = position.scale(self._cell_size)
@@ -114,14 +127,48 @@ class Director:
                 g = random.randint(0, 255)
                 b = random.randint(0, 255)
                 color = Color(r, g, b)
-
+                
                 artifact = Artifact()
-                artifact.set_velocity(Point(0, 5))
                 artifact.set_text(text)
                 artifact.set_font_size(self._font_size)
                 artifact.set_color(color)
                 artifact.set_position(position)
                 cast.add_actor("artifacts", artifact)
+                if x == COLS-10:
+                    self._current_x = 10
+                else:
+                    self._current_x += 5
+        #        self._updates_loop = 0
+
+        print (self._bullets_to_fire)
+        if self._updates_loop % 4 == 0:
+            if self._bullets_to_fire > 0:
+                bullet = Bullet()
+                bullet.set_position(Point(miner.get_position().get_x(), MAX_Y - 30))
+                cast.add_actor('bullets', bullet)
+
+                self._bullets_to_fire -= 1
+
+            # for n in range(DEFAULT_ARTIFACTS):
+            #     text = random.choice(ARTIFACT_OPTIONS)
+
+            #     x = random.randint(1, COLS - 1)
+            #     y = 1
+            #     position = Point(x, y)
+            #     position = position.scale(self._cell_size)
+
+            #     r = random.randint(0, 255)
+            #     g = random.randint(0, 255)
+            #     b = random.randint(0, 255)
+            #     color = Color(r, g, b)
+
+            #     artifact = Artifact()
+            #     artifact.set_velocity(Point(0, 5))
+            #     artifact.set_text(text)
+            #     artifact.set_font_size(self._font_size)
+            #     artifact.set_color(color)
+            #     artifact.set_position(position)
+            #     cast.add_actor("artifacts", artifact)
 
         for bullet in bullets:
             bullet.move_next(max_x, max_y)
