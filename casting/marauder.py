@@ -1,3 +1,5 @@
+import constants
+
 from casting.actor import Actor
 
 class Marauder(Actor):
@@ -12,20 +14,6 @@ class Marauder(Actor):
         """Constructs a new Marauder invoking the part constructor"""
 
         super().__init__()
-        self._message = ""
-
-    def get_message(self):
-        """Gets the marauders message
-        
-        Returns:
-            string: the message
-        """
-        return self._message
-        
-    def set_message(self, message):
-        """Updates the marauders message.
-        
-        Args:
-            message (str): the message
-        """
-        self._message = message
+        self.set_text("@")
+        self.set_color(constants.WHITE)
+        self.set_font_size(constants.FONT_SIZE)

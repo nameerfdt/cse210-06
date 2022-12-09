@@ -8,7 +8,6 @@ FONT_SIZE = 15
 
 CAPTION = "Space Marauders"
 
-#COLUMNS = 40
 COLS = 60
 ROWS = 20
 
