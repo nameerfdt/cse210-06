@@ -1,7 +1,9 @@
 # Final Project
 _______
 
-***Overview Info***
+Space Marauder is an interactive game where they player moves a spaceship along the x axis and tries to shoot marauders that lower down the y axis. Marauders are created and move right and left. The spaceship launches bullets to try and shoot down the marauders. 
+
+Player uses the left and right arrow keys to move the spaceship. The lauch the bullets, the player presses the space bar. When space bar is released, the bullets stop shooting. 
 
 ## Getting Started
 _______
@@ -81,12 +83,6 @@ _______
     * hold information relating to the location of actor 
 * constants.py
     * holds consistant values through game play
-
-    
-
-
-
-
 
 
 ## Required Technologies

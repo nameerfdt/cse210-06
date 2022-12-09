@@ -1,6 +1,10 @@
 import constants
-from actor import Actor
+from casting.actor import Actor
+from shared.point import Point
 
+x = int(constants.MAX_X / 2) #x=900/2=450
+y = int(constants.MAX_Y)-int(constants.FONT_SIZE) #y=600-15= 585
+position = Point(x, y) #(450, 585)
 
 class Spaceship(Actor):
     """
@@ -13,6 +17,13 @@ class Spaceship(Actor):
     """
     def __init__(self):
         super().__init__()
-        self.spaceship() #method prepare spaceship
+        self.set_text("%")
+        self.set_font_size(constants.FONT_SIZE)
+        self.set_color(constants.WHITE)
+        self.set_position(position)
+
+
+    
+
 
  

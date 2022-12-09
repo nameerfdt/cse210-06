@@ -46,5 +46,5 @@ class ControlActorsAction(Action):
         spaceship = cast.get_first_actor("spaceship")
         spaceship.move_next(self._direction)
 
-        bullet = cast.get_first_actor("spaceship")
+        bullet = cast.get_first_actor("bullets")
         bullet.move_next(self._direction)

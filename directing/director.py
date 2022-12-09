@@ -23,8 +23,6 @@ class Director:
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
             video_service (VideoService): An instance of VideoService.
-            cell_size: Cell size of the game board.
-            font_size: Font size of the text.
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
@@ -56,6 +54,7 @@ class Director:
         spaceship = cast.get_first_actor("spaceships")
         velocity = self._keyboard_service.get_direction()
         spaceship.set_velocity(velocity)
+
         if self._keyboard_service.shoot_bullet():
             self._bullets_to_fire += 1
         if self._keyboard_service.gun_off():
@@ -79,7 +78,7 @@ class Director:
 
         for marauder in marauders:
             if marauder.get_position().get_y() == max_y + 30:
-                cast.remove_actor("marauders", marauder)
+               cast.remove_actor("marauders", marauder)
 
             for bullet in bullets:
                 if marauder.get_position().equals(bullet.get_position()):
@@ -159,3 +158,4 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+        self._video_service._draw_grid()

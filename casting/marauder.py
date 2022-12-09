@@ -1,4 +1,5 @@
 
+import constants
 from casting.actor import Actor
 from shared.point import Point
 
@@ -13,39 +14,37 @@ class Marauder(Actor):
     """
 
     def __init__(self):
-        """Constructs a new alien"""
+        """Constructs a new marauder"""
         super().__init__()
-        self._message = ""
+        # self.set_text("^")
+        # self.set_font_size(constants.FONT_SIZE)
+        # self.set_color(constants.WHITE)
 
-    def get_message(self):
-        """Gets the marauders message
-        
-        Returns:
-            string: the message
-        """
-        return self._message
-        
-    def set_message(self, message):
-        """Updates the marauders message.
-        
-        Args:
-            message (str): the message
-        """
-        self._message = message
 
-        # for i in range (constants.NUMBER_OF_ALIENS):
-        #     text = "@"
-        #     x = random.randint(1, constants.COLUMNS -1)
-        #     y = random.randint(1, constants.ROWS -1)
-        #     position = Point(x, y)
-        #     position = position.scale (constants.CELL_SIZE)
+    # def _build_marauders(self):
 
-        #     color = constants.RED
-        #     alien = Actor()
-        #     alien.set_text(text)
-        #     alien.set_font_size(constants.FONT_SIZE)
-        #     alien.set_color(color)
-        #     alien.set_position(position)
+    #     #text = "0"
+    #     x = self._current_x
+    #     y = 1
+    #     position = Point(x, y)
+    #     position = position.scale(constants.CELL_SIZE)
+    #     self.set_position(position)
+
+    # def get_message(self):
+    #     """Gets the marauders message
+        
+    #     Returns:
+    #         string: the message
+    #     """
+    #     return self._message
+        
+    # def set_message(self, message):
+    #     """Updates the marauders message.
+        
+    #     Args:
+    #         message (str): the message
+    #     """
+    #     self._message = message
 
             
 

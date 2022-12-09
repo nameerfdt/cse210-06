@@ -28,13 +28,10 @@ class DrawActorsAction(Action):
         """
 
         spaceship = cast.get_first_actor("spaceships")        
-
-        alien = cast.get_first_actor("aliens")
-
+        marauder = cast.get_first_actor("marauders")
         bullet = cast.get_first_actor("bullets")
 
         self._video_service.clear_buffer()
         self._video_service.draw_actors(spaceship)
-        self._video_service.draw_actors(alien)
-        #self._video_service.draw_actors(messages, True)
+        self._video_service.draw_actors(marauder)
         self._video_service.flush_buffer()

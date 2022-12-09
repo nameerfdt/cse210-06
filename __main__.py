@@ -2,6 +2,8 @@ import constants
 
 from casting.actor import Actor
 from casting.cast import Cast
+from casting.spaceship import Spaceship
+from casting.marauder import Marauder
 
 from directing.director import Director
 
@@ -15,6 +17,12 @@ def main():
     
     # create the cast
     cast = Cast()
+
+    marauder = Marauder()
+    cast.add_actor("marauders",marauder)
+
+    spaceship = Spaceship()
+    cast.add_actor("spaceships",spaceship)
     
     # create the banner for displaying the points
     banner = Actor()
@@ -25,16 +33,18 @@ def main():
     cast.add_actor("banners", banner) #group name:banners" actor name: banner
     
     #create the spaceship
-    x = int(constants.MAX_X / 2) #x=900/2=450
-    y = int(constants.MAX_Y)-int(constants.FONT_SIZE) #y=600-15= 585
-    position = Point(x, y) #(450, 585)
+    # spaceship = Spaceship()
+    # cast.add_actor("spaceships",spaceship)
+    # x = int(constants.MAX_X / 2) #x=900/2=450
+    # y = int(constants.MAX_Y)-int(constants.FONT_SIZE) #y=600-15= 585
+    # position = Point(x, y) #(450, 585)
 
-    spaceship = Actor()
-    spaceship.set_text("#")
-    spaceship.set_font_size(constants.FONT_SIZE)
-    spaceship.set_color(constants.WHITE)
-    spaceship.set_position(position) #(450, 585)
-    cast.add_actor("spaceships", spaceship)
+    # spaceship = Actor()
+    # spaceship.set_text("#")
+    # spaceship.set_font_size(constants.FONT_SIZE)
+    # spaceship.set_color(constants.WHITE)
+    # spaceship.set_position(position) #(450, 585)
+    # cast.add_actor("spaceships", spaceship)
 
     # start the game
     keyboard_service = KeyboardService(constants.CELL_SIZE)

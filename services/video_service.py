@@ -101,9 +101,9 @@ class VideoService:
         pyray.init_window(self._width, self._height, self._caption)
         pyray.set_target_fps(self._frame_rate)
 
-    # def _draw_grid(self):
-    #     """Draws a grid on the screen."""
-    #     for y in range(0, self._height, self._cell_size):
-    #         pyray.draw_line(0, y, self._width, y, pyray.GRAY)
-    #     for x in range(0, self._width, self._cell_size):
-    #         pyray.draw_line(x, 0, x, self._height, pyray.GRAY)
+    def _draw_grid(self):
+        """Draws a grid on the screen."""
+        for y in range(0, self._height, self._cell_size):
+            pyray.draw_line(0, y, self._width, y, pyray.GRAY)
+        for x in range(0, self._width, self._cell_size):
+            pyray.draw_line(x, 0, x, self._height, pyray.GRAY)
